@@ -23,4 +23,26 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere)
+	class UBoxComponent* boxComp;
+
+	UPROPERTY(EditAnywhere)
+	class UStaticMeshComponent* bottleComp;
+
+	UPROPERTY(EditAnywhere)
+	class UStaticMeshComponent* fireComp;
+
+	UPROPERTY(EditAnywhere)
+	class UProjectileMovementComponent* movementComp;
+
+	UPROPERTY(EditAnywhere)
+	class AFireBottleFloor* floor;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class AFireBottleFloor> effectFloor;
+
+	UPROPERTY(EditDefaultsOnly)
+	class UParticleSystem* explosionImpactFactory;
+
+	void Explode();
 };

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
+#include "Horse.h"
 #include "HorseAnim.generated.h"
 
 /**
@@ -13,5 +14,16 @@ UCLASS()
 class REDERI_API UHorseAnim : public UAnimInstance
 {
 	GENERATED_BODY()
-	
+
+public:
+	void NativeUpdateAnimation(float DeltaSeconds) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float forwordVelocity;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float rightVelocity;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool isAir;
 };

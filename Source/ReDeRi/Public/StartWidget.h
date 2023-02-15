@@ -13,5 +13,21 @@ UCLASS()
 class REDERI_API UStartWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
+public:
+	virtual void NativeConstruct() override;
+
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	class UButton* StartButton;
+
+	UPROPERTY()
+	class AReDeRiGameModeBase* gm;
+
+	UFUNCTION(BlueprintCallable)
+	void GameStart();
+
+	UPROPERTY(EditAnywhere)
+	class USoundBase* BGM;
+
+	UAudioComponent* bgm;
 };

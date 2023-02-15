@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "NiagaraComponent.h"
 #include "FireBottleFloor.generated.h"
 
 UCLASS()
@@ -23,4 +24,29 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere)
+	class UNiagaraSystem* floorEffect;
+
+	UPROPERTY(EditAnywhere)
+	class UNiagaraSystem* fireEffect;
+
+	UPROPERTY(EditAnywhere)
+	class USphereComponent* sphereComp;
+
+	UFUNCTION()
+	void OnOverlap();
+
+	void StartFloor();
+
+	void StartFire();
+
+	void DestroySelf();
+
+	UPROPERTY()
+	UNiagaraComponent* niagaraFloorComp;
+
+	UPROPERTY()
+	UNiagaraComponent* niagaraFireComp;
+
+	FTimerHandle destroyTime;
 };

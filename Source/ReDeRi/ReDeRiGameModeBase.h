@@ -23,7 +23,7 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 
-	/*UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UGamePlayWidget> gamePlayWidget;
 
 	UPROPERTY()
@@ -114,38 +114,38 @@ public:
 	void GameStart();
 
 	UPROPERTY(EditAnywhere)
-		float HP;
+	float HP;
 
 	UPROPERTY(EditAnywhere)
-		float MaxHP = 100.0f;
+	float MaxHP = 100.0f;
 
 	UPROPERTY(EditAnywhere)
-		float RP;
+	float RP;
 
 	UPROPERTY(EditAnywhere)
-		float MaxRP = 100.0f;
+	float MaxRP = 100.0f;
 
 	UPROPERTY(EditAnywhere)
-		int32 deadCount = 3;
+	int32 deadCount = 3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		int32 maxPistolAmmo = 6;
+	int32 maxPistolAmmo = 6;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		int32 pistolAmmo;
+	int32 pistolAmmo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		int32 holdPistolAmmo;
+	int32 holdPistolAmmo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		int32 maxRifleAmmo = 5;
+	int32 maxRifleAmmo = 5;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		int32 rifleAmmo;
+	int32 rifleAmmo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		int32 holdRifleAmmo;
+	int32 holdRifleAmmo;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-		int32 holdBottleAmmo;*/
+	int32 holdBottleAmmo;
 };

@@ -62,7 +62,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	class AHorse* horsePlayer;
 
-	/*UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere)
 	class AFireBottle* fireBottle;
 
 	UPROPERTY(EditAnywhere)
@@ -72,7 +72,7 @@ public:
 	TSubclassOf<class UWeaponWidget> weaponWidget;
 
 	UPROPERTY()
-	class UWeaponWidget* weapon_UI;*/
+	class UWeaponWidget* weapon_UI;
 
 	UPROPERTY(EditDefaultsOnly)
 	class UParticleSystem* gunEnemyImpactFactory;
@@ -104,7 +104,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	class USoundBase* noBulletSound;
 
-	/*void Horizontal(float value);
+	void Horizontal(float value);
 
 	void Vertical(float value);
 
@@ -210,8 +210,8 @@ public:
 
 	void DestroyEnemy();
 
-	//UPROPERTY(EditAnywhere)
-	//TSubclassOf<class ADeadEyeSpawn> deadFactory;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class ADeadEyeSpawn> deadFactory;
 
 	UPROPERTY()
 	class AReDeRiGameModeBase* gm;
@@ -226,5 +226,5 @@ public:
 
 	void FireAnim();
 
-	void SetRagdoll();*/
+	void SetRagdoll();
 };

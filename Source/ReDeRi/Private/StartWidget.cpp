@@ -2,4 +2,35 @@
 
 
 #include "StartWidget.h"
+#include "Components/AudioComponent.h"
+#include "Components/Button.h"
+#include "Kismet/GameplayStatics.h"
+#include "ReDeRi/ReDeRiGameModeBase.h"
 
+void UStartWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	gm = Cast<AReDeRiGameModeBase>(GetWorld()->GetAuthGameMode());
+
+	bgm = Cast<UAudioComponent>(UGameplayStatics::SpawnSound2D(GetWorld(), BGM));
+
+	StartButton->OnClicked.AddDynamic(this, &UStartWidget::GameStart);
+
+	GetWorld()->GetFirstPlayerController()->AController::SetIgnoreLookInput(false);
+}
+
+void UStartWidget::GameStart()
+{
+	UGameplayStatics::SetGamePaused(GetWorld(), false);
+
+	GetWorld()->GetFirstPlayerController()->SetShowMouseCursor(false);
+
+	gm->OnGamePlayWidget();
+
+	gm->CrossHairOnOff();
+
+	bgm->Stop();
+
+	this->RemoveFromParent();
+}

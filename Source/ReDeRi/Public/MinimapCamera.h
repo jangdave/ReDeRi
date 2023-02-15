@@ -13,5 +13,15 @@ UCLASS()
 class REDERI_API AMinimapCamera : public ASceneCapture2D
 {
 	GENERATED_BODY()
-	
+
+public:
+	AMinimapCamera();
+
+protected:
+	virtual void BeginPlay() override;
+
+public:
+	virtual void Tick(float DeltaTime) override;
+
+	//class ARedPlayer* player;
 };

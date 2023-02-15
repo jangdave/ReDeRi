@@ -3,3 +3,7 @@
 
 #include "GamePlayWidget.h"
 
+void UGamePlayWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+}

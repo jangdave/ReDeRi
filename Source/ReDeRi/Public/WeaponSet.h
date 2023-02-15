@@ -22,5 +22,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	
+	UPROPERTY(EditAnywhere)
+	class UBoxComponent* boxComp;
 
+	void DestroySelf();
 };

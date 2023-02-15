@@ -2,8 +2,15 @@
 
 
 #include "RedPlayer.h"
+#include "DeadEyeSpawn.h"
+#include "DeadEyeWidget.h"
+#include "Enemy.h"
+#include "EnemyFSM.h"
+#include "WeaponWidget.h"
+#include "FireBottle.h"
 #include "Horse.h"
 #include "PlayerAnim.h"
+#include "WeaponSet.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -81,17 +88,17 @@ void ARedPlayer::BeginPlay()
 
 	horsePlayer = Cast<AHorse>(UGameplayStatics::GetActorOfClass(GetWorld(), AHorse::StaticClass()));
 
-	//weapon_UI = CreateWidget<UWeaponWidget>(GetWorld(), weaponWidget);
+	weapon_UI = CreateWidget<UWeaponWidget>(GetWorld(), weaponWidget);
 
-	//fireBottle = Cast<AFireBottle>(UGameplayStatics::GetActorOfClass(GetWorld(), fireBottleFactory));
+	fireBottle = Cast<AFireBottle>(UGameplayStatics::GetActorOfClass(GetWorld(), fireBottleFactory));
 
 	playerAnim = Cast<UPlayerAnim>(GetMesh()->GetAnimInstance());
 
-	//ChooseWeapon(EWeaponState::FIST);
+	ChooseWeapon(EWeaponState::FIST);
 
-	//playerAnim->isTargetOn = false;
+	playerAnim->isTargetOn = false;
 
-	//gm = Cast<AReDeRiGameModeBase>(GetWorld()->GetAuthGameMode());
+	gm = Cast<AReDeRiGameModeBase>(GetWorld()->GetAuthGameMode());
 }
 
 // Called every frame
@@ -99,13 +106,13 @@ void ARedPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	//FTransform trans(GetControlRotation());
-	//FVector resultDirection = trans.TransformVector(direction);
-	//resultDirection.Z = 0;
-	//resultDirection.Normalize();
-	//AddMovementInput(resultDirection);
+	FTransform trans(GetControlRotation());
+	FVector resultDirection = trans.TransformVector(direction);
+	resultDirection.Z = 0;
+	resultDirection.Normalize();
+	AddMovementInput(resultDirection);
 	//방향 초기화
-	//direction = FVector::ZeroVector;
+	direction = FVector::ZeroVector;
 }
 
 // Called to bind functionality to input
@@ -113,7 +120,7 @@ void ARedPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	/*PlayerInputComponent->BindAxis(TEXT("Horizontal"), this, &ARedPlayer::Horizontal);
+	PlayerInputComponent->BindAxis(TEXT("Horizontal"), this, &ARedPlayer::Horizontal);
 	PlayerInputComponent->BindAxis(TEXT("Vertical"), this, &ARedPlayer::Vertical);
 	PlayerInputComponent->BindAxis(TEXT("Look Up"), this, &ARedPlayer::LookUp);
 	PlayerInputComponent->BindAxis(TEXT("Turn Right"), this, &ARedPlayer::TurnRight);
@@ -131,10 +138,10 @@ void ARedPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	PlayerInputComponent->BindAction(TEXT("DeadEye"), IE_Pressed, this, &ARedPlayer::OnDeadEye);
 	PlayerInputComponent->BindAction(TEXT("DeadEye"), IE_Released, this, &ARedPlayer::OffDeadEye);
 	PlayerInputComponent->BindAction(TEXT("Interaction"), IE_Pressed, this, &ARedPlayer::OnInteraction);
-	PlayerInputComponent->BindAction(TEXT("Reload"), IE_Pressed, this, &ARedPlayer::ReloadAmmo);*/
+	PlayerInputComponent->BindAction(TEXT("Reload"), IE_Pressed, this, &ARedPlayer::ReloadAmmo);
 }
 
-/*void ARedPlayer::OnDeadEye()
+void ARedPlayer::OnDeadEye()
 {
 	if (armWeapon == EWeaponState::PISTOL || armWeapon == EWeaponState::RIFLE)
 	{
@@ -272,7 +279,7 @@ void ARedPlayer::HorseRide()
 	{
 		//플레이어 컨트롤러 넘기기
 		GetWorld()->GetFirstPlayerController()->Possess(horsePlayer);
-		SetActorLocation(FVector(horsePlayer->GetActorLocation().X, horsePlayer->GetActorLocation().Y, horsePlayer->GetActorLocation().Z + 20));
+		SetActorLocation(FVector(horsePlayer->GetActorLocation().X, horsePlayer->GetActorLocation().Y, horsePlayer->GetActorLocation().Z + 30.0f));
 		SetActorRotation(horsePlayer->GetActorRotation());
 		playerAnim->OnAnim(TEXT("Mount"));
 	}
@@ -330,6 +337,7 @@ void ARedPlayer::TargetOnPressed()
 	playerAnim->isTargetOn = true;
 	bTarget = playerAnim->isTargetOn;
 	bUseControllerRotationYaw = true;
+	gm->CrossHairchange();
 }
 
 void ARedPlayer::TargetOnReleased()
@@ -337,6 +345,7 @@ void ARedPlayer::TargetOnReleased()
 	playerAnim->isTargetOn = false;
 	bTarget = playerAnim->isTargetOn;
 	bUseControllerRotationYaw = false;
+	gm->CrossHairchange();
 }
 
 void ARedPlayer::CrouchPressed()
@@ -498,7 +507,7 @@ void ARedPlayer::DestroyEnemy()
 
 		UEnemyFSM* fsm = Cast<UEnemyFSM>(enemies[i]->GetDefaultSubobjectByName(TEXT("EnemyFSM")));
 
-		fsm->OnDamageProcess(100);
+		//fsm->OnDamageProcess(100);
 
 		FVector loc = GetActorLocation();
 
@@ -613,7 +622,7 @@ void ARedPlayer::FirePistol()
 		{
 			UEnemyFSM* fsm = Cast<UEnemyFSM>(enemy->GetDefaultSubobjectByName(TEXT("EnemyFSM")));
 
-			fsm->OnDamageProcess(10);
+			//fsm->OnDamageProcess(10);
 		}
 	}
 
@@ -652,7 +661,7 @@ void ARedPlayer::FireRifle()
 		{
 			UEnemyFSM* fsm = Cast<UEnemyFSM>(enemy->GetDefaultSubobjectByName(TEXT("EnemyFSM")));
 
-			fsm->OnDamageProcess(25);
+			//fsm->OnDamageProcess(25);
 		}
 	}
 
@@ -752,4 +761,4 @@ void ARedPlayer::Ride()
 	}
 
 	ChooseWeapon(EWeaponState::FIST);
-}*/
+}

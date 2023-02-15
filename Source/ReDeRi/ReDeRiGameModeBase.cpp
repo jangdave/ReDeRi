@@ -2,6 +2,16 @@
 
 
 #include "ReDeRiGameModeBase.h"
+#include "GamePlayWidget.h"
+#include "DeadEyeSpawn.h"
+#include "TargetCrossWidget.h"
+#include "DefaultCrossWidget.h"
+#include "BloodWidget.h"
+#include "PistolBulletWidget.h"
+#include "RifleBulletWidget.h"
+#include "GameOverWidget.h"
+#include "DeadEyeWidget.h"
+#include "StartWidget.h"
 #include "Horse.h"
 #include "RedPlayer.h"
 #include "Components/AudioComponent.h"
@@ -16,29 +26,27 @@ void AReDeRiGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//CastFun();
+	CastFun();
 
-	//GameStart();
+	GameStart();
 
-	//HP = MaxHP;
+	HP = MaxHP;
 
-	//RP = MaxRP;
+	RP = MaxRP;
 }
 
 void AReDeRiGameModeBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//CrossHairchange();
+	OnBlood();
 
-	//OnBlood();
+	HPRPCharge();
 
-	//HPRPCharge();
-
-	//UGameplayStatics::GetAllActorsOfClass(GetWorld(), ADeadEyeSpawn::StaticClass(), deadeyes);
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ADeadEyeSpawn::StaticClass(), deadeyes);
 }
 
-/*void AReDeRiGameModeBase::CastFun()
+void AReDeRiGameModeBase::CastFun()
 {
 	horse = Cast<AHorse>(UGameplayStatics::GetActorOfClass(GetWorld(), AHorse::StaticClass()));
 
@@ -216,4 +224,4 @@ void AReDeRiGameModeBase::GameStart()
 	UGameplayStatics::SetGamePaused(GetWorld(), true);
 
 	GetWorld()->GetFirstPlayerController()->SetShowMouseCursor(true);
-}*/
+}
