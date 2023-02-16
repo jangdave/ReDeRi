@@ -49,8 +49,6 @@ public:
 	void DamageState();
 	// 사망 상태
 	void DeadState();
-	// 도망 상태
-	void FleeState();
 
 	// 대기 시간
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "FSM")
@@ -68,7 +66,7 @@ public:
 
 	// 공격 범위
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "FSM")
-		float AttackRange = 1000.0f;
+		float AttackRange = 300.0f;
 
 	// 공격 딜레이
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "FSM")
@@ -76,7 +74,7 @@ public:
 
 	// 적 걷는 속도
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "FSM")
-		float EnemyWalkSpeed = 400.0f;
+		float EnemyWalkSpeed = 300.0f;
 
 	// 적 뛰는 속도
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "FSM")
@@ -94,9 +92,6 @@ public:
 	// 피격 알림 이벤트 함수
 	void OnDamageProcess(int32 damage);
 
-	// 공격 이벤트
-	void OnAttackEvent();
-
 	// AI 컨트롤러
 	UPROPERTY()
 		class AAIController* AI;
@@ -107,9 +102,9 @@ public:
 	// spawntokill에 쓸 변수
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "FSM")
 		int NumEnemies;
-	// 적이 죽을때, spawner의 numEnemy를 감수시키는 함수
-	UFUNCTION()
-		void MinusNumEnemies();
+	//// 적이 죽을때, spawner의 numEnemy를 감수시키는 함수
+	//UFUNCTION()
+	//	void MinusNumEnemies();
 	//UPROPERTY()
 	//	TArray<class AEnemySpawnToKill*> enemySpawns;
 
@@ -124,11 +119,4 @@ public:
 	int32 EnemyAttackCount = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool IsCanPlayerShoot = false;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
-	//	FVector EnemyLocation;
-
-	//UFUNCTION(BlueprintCallable, Category = "AI")
-	//	void SetTargetLocation(FVector newTargetLocation);
-
 };

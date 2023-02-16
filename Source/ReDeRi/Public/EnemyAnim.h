@@ -27,9 +27,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool bEnemyDieEnd;
 
-	/*UFUNCTION(BlueprintCallable)
-		void OnHitEvent()*/;
-
 		UFUNCTION()
 			void AnimNotify_OnHit();
 

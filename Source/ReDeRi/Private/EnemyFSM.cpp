@@ -41,26 +41,24 @@ void UEnemyFSM::BeginPlay()
 	// AAIController 타입으로 캐스팅
 	AI = Cast<AAIController>(me->GetController());
 
+	//// 애너미 소환
+	//UGameplayStatics::GetAllActorsOfClass(GetWorld(), AEnemySpawnToKill::StaticClass(), bpEnemySpawner);
+	//for (int i = 0; i < bpEnemySpawner.Num(); i++)
+	//{
+	//	AEnemySpawnToKill* emptySpawner = nullptr;
+	//	enemySpawns.Add(emptySpawner);
+	//}
 
-
-	// 애너미 소환
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AEnemySpawnToKill::StaticClass(), bpEnemySpawner);
-	for (int i = 0; i < bpEnemySpawner.Num(); i++)
-	{
-		AEnemySpawnToKill* emptySpawner = nullptr;
-		enemySpawns.Add(emptySpawner);
-	}
-
-	for (int i = 0; i < bpEnemySpawner.Num(); i++)
-	{
-		auto spawn = Cast<AEnemySpawnToKill>(bpEnemySpawner[i]);
-		enemySpawns[i] = spawn;
-		if (enemySpawns[i]->NumEnemy == 0)
-		{
-			enemySpawns[i]->isSpawn = true;
-		}
-	}
-	
+	//for (int i = 0; i < bpEnemySpawner.Num(); i++)
+	//{
+	//	auto spawn = Cast<AEnemySpawnToKill>(bpEnemySpawner[i]);
+	//	enemySpawns[i] = spawn;
+	//	if (enemySpawns[i]->NumEnemy == 0)
+	//	{
+	//		enemySpawns[i]->isSpawn = true;
+	//	}
+	//}
+	//
 }
 
 
@@ -127,6 +125,7 @@ void UEnemyFSM::IdleState()
 			// 상태를 이동 상태로 변경
 			mState = EEnemyState::Move;
 			me->enemyAnim->State = mState;
+			//Cast<AEnemy>(GetOwner())->enemyAnim->State = mState
 			// 반복문 종료
 			break;
 		}
@@ -146,7 +145,7 @@ void UEnemyFSM::MoveState()
 
 	//	me->AddMovementInput(direction.GetSafeNormal());
 
-	AI->MoveToLocation(destination, 800.0f);
+	AI->MoveToLocation(destination, 10.0f);
 
 	// 타깃과 가까워 지면 공격 상태로 전환하고 싶다.
 	// 1. 만약 거리가 공격 범위 안에 들어오면..
@@ -230,7 +229,7 @@ void UEnemyFSM::DeadState()
 	// 사망
 	if (currentTime > 3.0f)
 	{
-		for (int i = 0; i < bpEnemySpawner.Num(); i++)
+		/*for (int i = 0; i < bpEnemySpawner.Num(); i++)
 		{
 			enemySpawns[i]->NumEnemy--;
 
@@ -238,15 +237,10 @@ void UEnemyFSM::DeadState()
 			{
 				enemySpawns[i]->isSpawn = true;
 			}
-		}
+		}*/
 		// currentTime이 1초가 넘으면 사망
 		me->Destroy();
 	}
-}
-
-void UEnemyFSM::FleeState()
-{
-
 }
 
 void UEnemyFSM::OnDamageProcess(int32 damage)
@@ -270,19 +264,15 @@ void UEnemyFSM::OnDamageProcess(int32 damage)
 	}
 }
 
-void UEnemyFSM::OnAttackEvent()
-{
-}
-
-void UEnemyFSM::MinusNumEnemies()
-{
-	AEnemySpawnToKill* EnemySpawner = Cast<AEnemySpawnToKill>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemySpawnToKill::StaticClass()));
-	// 만약 EnemySpawnToKill에서 NumEnemy가 감소되면
-	if (EnemySpawner)
-	{
-		if (EnemySpawner->NumEnemy <= 0)
-		{
-
-		}
-	}
-}
+//void UEnemyFSM::MinusNumEnemies()
+//{
+//	AEnemySpawnToKill* EnemySpawner = Cast<AEnemySpawnToKill>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemySpawnToKill::StaticClass()));
+//	// 만약 EnemySpawnToKill에서 NumEnemy가 감소되면
+//	if (EnemySpawner)
+//	{
+//		if (EnemySpawner->NumEnemy <= 0)
+//		{
+//
+//		}
+//	}
+//}

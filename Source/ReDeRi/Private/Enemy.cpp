@@ -62,18 +62,18 @@ AEnemy::AEnemy()
 
 
 	// 애너미에님 컨스트럭터헬퍼스
-	ConstructorHelpers::FClassFinder<UAnimInstance> TempAnim(TEXT("/Script/Engine.AnimBlueprint'/Game/Blueprint/Enemy/ABP_Enemy.ABP_Enemy_C'"));
+	ConstructorHelpers::FClassFinder<UAnimInstance> TempAnim(TEXT("/Script/Engine.AnimBlueprint'/Game/Blueprint/enemy/ABP_Enemy.ABP_Enemy_C'"));
 	if (TempAnim.Succeeded())
 	{
 		GetMesh()->SetAnimInstanceClass(TempAnim.Class);
 	}
 
 	// 애너미에님 컨스트럭터헬퍼스
-	ConstructorHelpers::FClassFinder<UAnimInstance> TempAnim2(TEXT("/Script/Engine.AnimBlueprint'/Game/Blueprint/Enemy/ABP_Enemy2.ABP_Enemy2_C'"));
-	if (TempAnim.Succeeded())
-	{
-		GetMesh()->SetAnimInstanceClass(TempAnim2.Class);
-	}
+	//ConstructorHelpers::FClassFinder<UAnimInstance> TempAnim2(TEXT("/Script/Engine.AnimBlueprint'/Game/Blueprint/Enemy/ABP_Enemy2.ABP_Enemy2_C'"));
+	//if (TempAnim.Succeeded())
+	//{
+	//	GetMesh()->SetAnimInstanceClass(TempAnim2.Class);
+	//}
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 
@@ -99,9 +99,6 @@ void AEnemy::BeginPlay()
 	// 애너미애님 겟매쉬 캐스트
 	enemyAnim = Cast<UEnemyAnim>(GetMesh()->GetAnimInstance());
 
-	// 총알과의 Overlap을 감지하기 위한 함수
-	GetMesh()->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::OnOverlapBegin);
-
 }
 
 // Called every frame
@@ -124,25 +121,3 @@ void AEnemy::OnFire()
 {
 	Cast<UEnemyAnim>(GetMesh()->GetAnimInstance())->OnMyAttack(TEXT("Shoot"));
 }
-
-void AEnemy::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bBFromSweep, const FHitResult& SweepResult)
-{
-	// OtherActor가 PlayerPistolBullet 이라면
-	if (OtherActor->IsA<APlayerPistolBullet>())
-	{
-		// EnemyFSM으로 enemy에게 데미지를 주고 싶다.
-		myEnemyFSM->OnDamageProcess(10.0f);
-
-		UE_LOG(LogTemp, Warning, TEXT("Hit"));
-	}
-	// OtherActor가 PlayerRifleBullet 이라면
-	else if (OtherActor->IsA<APlayerRifleBullet>())
-	{
-		// EnemyFSM으로 enemy에게 데미지를 주고 싶다.
-		myEnemyFSM->OnDamageProcess(20.0f);
-
-		UE_LOG(LogTemp, Warning, TEXT("Hit"));
-		UE_LOG(LogTemp, Warning, TEXT("Hittest"));
-	}
-}
-

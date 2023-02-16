@@ -26,10 +26,10 @@ void UEnemyAnim::AnimNotify_OnAttack()
 	{
 		return;
 	}
-	me->myEnemyFSM->OnAttackEvent();
 }
 
 void UEnemyAnim::OnMyAttack(FName SectionName)
 {
 	me->PlayAnimMontage(AttackMontage, 1.0f, SectionName);
+	UE_LOG(LogTemp, Warning, TEXT("OnMyAttack"));
 }

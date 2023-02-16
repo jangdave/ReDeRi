@@ -45,10 +45,6 @@ public:
 	UFUNCTION()
 		void OnFire();
 
-	// 총알 오버랩 이벤트
-	UFUNCTION()
-		void OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bBFromSweep, const FHitResult& SweepResult);
-
 	//공격사운드
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "FSM")
 		USoundBase* EnemyAttackSound;
