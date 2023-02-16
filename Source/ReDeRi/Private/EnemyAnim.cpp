@@ -2,4 +2,34 @@
 
 
 #include "EnemyAnim.h"
+#include "Enemy.h"
 
+void UEnemyAnim::NativeBeginPlay()
+{
+	Super::NativeBeginPlay();
+
+	me = Cast<AEnemy>(TryGetPawnOwner());
+}
+
+
+void UEnemyAnim::AnimNotify_OnHit()
+{
+	if (this == nullptr)
+	{
+		return;
+	}
+}
+
+void UEnemyAnim::AnimNotify_OnAttack()
+{
+	if (this == nullptr)
+	{
+		return;
+	}
+	me->myEnemyFSM->OnAttackEvent();
+}
+
+void UEnemyAnim::OnMyAttack(FName SectionName)
+{
+	me->PlayAnimMontage(AttackMontage, 1.0f, SectionName);
+}
