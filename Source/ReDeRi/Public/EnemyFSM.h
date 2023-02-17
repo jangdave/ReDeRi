@@ -66,7 +66,7 @@ public:
 
 	// 공격 범위
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "FSM")
-		float AttackRange = 300.0f;
+		float AttackRange = 800.0f;
 
 	// 공격 딜레이
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "FSM")

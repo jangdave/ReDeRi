@@ -119,5 +119,5 @@ void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void AEnemy::OnFire()
 {
-	Cast<UEnemyAnim>(GetMesh()->GetAnimInstance())->OnMyAttack(TEXT("Shoot"));
+	enemyAnim->OnMyAttack(TEXT("Shoot"));
 }
