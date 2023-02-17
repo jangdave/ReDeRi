@@ -4,6 +4,9 @@
 #include "Bullet.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "RedPlayer.h"
+#include "Kismet/GameplayStatics.h"
+
 
 // Sets default values
 ABullet::ABullet()
@@ -30,8 +33,8 @@ ABullet::ABullet()
 
 	movementComp = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("movementComp"));
 	movementComp->SetUpdatedComponent(sphereComp);
-	movementComp->InitialSpeed = 1000.0f;
-	movementComp->MaxSpeed = 1000.0f;
+	movementComp->InitialSpeed = 2000.0f;
+	movementComp->MaxSpeed = 2000.0f;
 	movementComp->ProjectileGravityScale = 0.2f;
 }
 
@@ -39,7 +42,7 @@ ABullet::ABullet()
 void ABullet::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame
@@ -47,5 +50,30 @@ void ABullet::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ABullet::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	FVector NormalImpulse, const FHitResult& Hit)
+{
+	// 총알이 플레이어에게 맞았을 때
+	if (OtherActor->IsA(ARedPlayer::StaticClass()))
+	{
+		// 플레이어 타입으로 캐스팅
+		ARedPlayer* player = Cast<ARedPlayer>(OtherActor);
+
+		// 만약 닿은게 player라면 OnDamage함수를 실행하고 데미지를 넘겨준다.
+		if (player)
+		{
+			player->OnDamage(Damage);
+			UE_LOG(LogTemp, Warning, TEXT("Hittest"));
+		}
+		// 총알 파괴
+		Destroy();
+	}
+	else
+	{
+		// 총알 사운드 재생
+		UGameplayStatics::PlaySoundAtLocation(this, BulletWhipSound, GetActorLocation());
+	}
 }
 

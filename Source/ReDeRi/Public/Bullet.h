@@ -31,4 +31,16 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	class UProjectileMovementComponent* movementComp;
+
+	// 총알 데미지
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "BulletSettings")
+		float Damage = 15.0f;
+
+	// 총알 데미지 함수
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	// 총알 스치는 사운드
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "BulletSettings")
+		USoundBase* BulletWhipSound;
 };
