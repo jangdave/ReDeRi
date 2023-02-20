@@ -126,6 +126,8 @@ void AHorse::BeginPlay()
 	gmH = Cast<AReDeRiGameModeBase>(GetWorld()->GetAuthGameMode());
 
 	ChooseWeapon(EWeaponArm::FIST);
+
+	GetCharacterMovement()->MaxWalkSpeed = 1200 * accel;
 }
 
 // Called every frame
