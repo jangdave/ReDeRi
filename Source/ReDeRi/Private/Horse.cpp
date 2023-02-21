@@ -340,7 +340,7 @@ void AHorse::HDestroyEnemy()
 
 		UEnemyFSM* fsm = Cast<UEnemyFSM>(player->enemies[i]->GetDefaultSubobjectByName(TEXT("EnemyFSM")));
 
-		//fsm->OnDamageProcess(100);
+		fsm->OnDamageProcess(100);
 
 		FVector locf = GetActorLocation();
 
@@ -504,7 +504,7 @@ void AHorse::FirePistol()
 		{
 			UEnemyFSM* fsm = Cast<UEnemyFSM>(enemy->GetDefaultSubobjectByName(TEXT("EnemyFSM")));
 
-			//fsm->OnDamageProcess(10);
+			fsm->OnDamageProcess(10);
 		}
 	}
 
@@ -543,7 +543,7 @@ void AHorse::FireRifle()
 		{
 			UEnemyFSM* fsm = Cast<UEnemyFSM>(enemy->GetDefaultSubobjectByName(TEXT("EnemyFSM")));
 
-			//fsm->OnDamageProcess(25);
+			fsm->OnDamageProcess(25);
 		}
 	}
 
