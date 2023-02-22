@@ -44,6 +44,9 @@ void ABullet::BeginPlay()
 	Super::BeginPlay();
 
 	sphereComp->OnComponentBeginOverlap.AddDynamic(this, &ABullet::OnHit);
+
+	FTimerHandle timer;
+	GetWorld()->GetTimerManager().SetTimer(timer, this, &ABullet::DestroyMyself, 3.0f, false);
 }
 
 // Called every frame
@@ -70,3 +73,7 @@ void ABullet::OnHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor
 	}
 }
 
+void ABullet::DestroyMyself()
+{
+	this->Destroy();
+}

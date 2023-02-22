@@ -40,6 +40,8 @@ public:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	void DestroyMyself();
+
 	// 총알 스치는 사운드
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "BulletSettings")
 	USoundBase* BulletWhipSound;

@@ -298,7 +298,7 @@ void AHorse::Reload()
 	{
 		horsePlayerAnim->ReloadAnim();
 	}
-	if (weaponArm == EWeaponArm::PISTOL)
+	if (weaponArm == EWeaponArm::RIFLE)
 	{
 		player->PlaySound(player->rifleReloadSound, GetActorLocation());
 	}
